@@ -1,74 +1,86 @@
 #pragma once
-#include<iostream>
-#include<vector>
-#include "Course.h"
+#include "Teacher.h"
+#include "Student.h"
 
-using namespace std;
-
-
-class Student
+class Course
 {
 private:
 
-	string studentID;
-	string Name;
-	string Email;
-	vector <Course> CoursesEnrolled;
+	string CourseCode;
+	string CourseName;
+	Teacher teacher;
+	vector <Student> StudentsEnrolled;
 
 public:
 
-	void setStudentID(string studentID)
+	void setCourseCode(string CourseCode)
 	{
-		this->studentID = studentID;
+		this->CourseCode = CourseCode;
 	}
 
-	void setName(string Name)
+	void setCourseName(string CourseName)
 	{
-		this->Name = Name;
+		this->CourseName = CourseName;
+	}
+	
+	void setTeacher(Teacher teacher)
+	{
+		this->teacher = teacher;
 	}
 
-	void setEmail(string Email)
+	string getCourseCode()
 	{
-		this->Email = Email;
+		this->CourseCode = CourseCode;
 	}
 
-	string getStudentID()
+	string getCourseName()
 	{
-		return this->studentID;
+		return this->CourseName;
 	}
 
-	string getName()
+	Teacher getTeacher()
 	{
-		return this->Name;
+		return this->teacher;
 	}
 
-	string getEmail()
+	vector <Student> getStudentsEnrolled()
 	{
-		return this->Email;
+		return this->StudentsEnrolled;
 	}
 
-	vector <Course> getCoursesEnrolled()
+	void AddStudent(Student newStudent)
 	{
-		return this->CoursesEnrolled;
+		this->StudentsEnrolled.push_back(newStudent);
+		cout << "\n\nStudent added Successfully.";
 	}
 
-	void EnrollCourse(Course newCourse)
+	void RemoveStudent(Student newStudent)
 	{
-		this->CoursesEnrolled.push_back(newCourse);
-	}
+		int count = 0;
 
-
-
-
-	void ViewEnrolledCourses()
-	{
-		for (auto it : this->CoursesEnrolled)
+		for (auto it : this->StudentsEnrolled)
 		{
-			cout << "\n\nCourse Code: " << it.getCourseCode();
-			cout << "\n\nCourse Name: " << it.getCourseName();
-			//cout << "\n\nCourse Teacher: " << it.getTeacher();
+			if (it.getStudentID() == newStudent.getStudentID())
+			{
+				auto it2 = find(StudentsEnrolled.begin(), StudentsEnrolled.end(), count);
+				StudentsEnrolled.erase(it2);
+				cout << "\n\nStudent Removed Successfully.";
+				break;
+			}
+			cout << "\n\nStudent with this ID does not Exist";
 		}
 	}
 
+	void ViewStudentsEnrolled()
+	{
+		int count = 0;
+		for (auto it : StudentsEnrolled)
+		{
+			cout << "\n\n-------------Student " << count + 1 << "\n\n-------------";
+			cout << "\n\nStudent ID: " << it.getStudentID();
+			cout << "\n\nName: " << it.getName();
+			cout << "\n\nEmail: " << it.getEmail();
+		}
+	}
 
 };
